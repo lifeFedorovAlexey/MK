@@ -1,5 +1,4 @@
 const IMAGE_URL = "http://reactmarathon-api.herokuapp.com/assets/";
-const DEFAULT_IMAGE_URL = IMAGE_URL + "subzero.gif";
 
 document.addEventListener("DOMContentLoaded", () => {
   initGame();
@@ -19,6 +18,7 @@ class Arena {
     this.id = id;
     this.container = this.getContainer();
     this.players = [];
+    this.playersList = [];
   }
   getContainer = () => {
     return document.getElementById(this.id);
@@ -33,23 +33,35 @@ class Arena {
 
   createPlayer = (id, name, hp) => {
     const player = new Player(id, name, hp);
-    let playerComponent = document.createElement("div");
-    playerComponent.classList.add(`player${player.id}`);
-    playerComponent.innerHTML = `
-          <div class="progressbar">
-              <div class="life"></div>
-              <div class="name">${player.name}</div>
-          </div>
-          <div class="character">
-              <img src="${player.img}" onerror="onPlayerImageError(this)"/>
-          </div>`;
-    this.container.appendChild(playerComponent);
+
+    let playerElement = createElement("div", [player.id]);
+
+    let progressbarElement = createElement("div", ["progressbar"]);
+
+    let lifeElement = createElement("div", ["life"]);
+
+    let nameElement = createElement("div", ["name"]);
+    nameElement.innerHTML = player.name;
+
+    let characterElement = createElement("div", ["character"]);
+
+    let imageElement = createElement("img");
+    imageElement.src = player.img;
+
+    progressbarElement.appendChild(lifeElement);
+    progressbarElement.appendChild(nameElement);
+    characterElement.appendChild(imageElement);
+    playerElement.appendChild(progressbarElement);
+    playerElement.appendChild(characterElement);
+
+    this.container.appendChild(playerElement);
+    this.playersList.push(playerElement);
   };
 }
 
 class Player {
   constructor(id, name, hp) {
-    this.id = ++id;
+    this.id = `player${++id}`;
     this.name = name;
     this.hp = hp;
     this.img = this.getImgFileName(name);
@@ -67,6 +79,11 @@ class Player {
   };
 }
 
-onPlayerImageError = (element) => {
-  element.src = DEFAULT_IMAGE_URL;
+createElement = (tag, classList) => {
+  let element = document.createElement(tag);
+  if (classList) {
+    element.classList.add(classList.join(" ,"));
+  }
+
+  return element;
 };
