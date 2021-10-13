@@ -1,4 +1,4 @@
-createElement = (tag, { classList, src, text }) => {
+createElement = (tag, { classList, src, text, style }) => {
   let element = document.createElement(tag);
   if (classList) {
     element.classList.add(classList.join(" "));
@@ -13,6 +13,12 @@ createElement = (tag, { classList, src, text }) => {
     element.onerror = () => {
       element.src = DEFAULT_IMAGE_URL;
     };
+  }
+
+  if (style) {
+    if (style.width) {
+      element.style.width = style.width + "%";
+    }
   }
 
   return element;
