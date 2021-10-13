@@ -76,6 +76,7 @@ body {
 
 .arenas.arena1 {
   background-image: url(./assets/scorpions-lair-arenas.png);
+  min-height: 450px;
 }
 
 .arenas.arena2 {
