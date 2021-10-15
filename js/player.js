@@ -16,6 +16,7 @@ class Player {
     this.image = null;
     this.isDead = false;
   }
+  
   init = () => {
     this.element = createElement("div", { classList: [this.id] });
     this.progressbar = createElement("div", {
@@ -35,6 +36,7 @@ class Player {
     this.character = createElement("div", { classList: ["character"] });
     this.image = createElement("img", { src: this.img });
   };
+
   render = () => {
     this.progressbar.appendChild(this.life);
     this.progressbar.appendChild(this.name);
@@ -42,11 +44,13 @@ class Player {
     this.element.appendChild(this.progressbar);
     this.element.appendChild(this.character);
   };
+
   attack = () => {
-    const damage = getRandomIntInclusive(1,10)
+    const damage = getRandomInRange(1,10)
     console.log(`Игрок: ${this.nameCharacter} наносит урон ${damage}`)
     return damage
   };
+
   getDamage(num){
     const currentHp = this.hp - num;
 

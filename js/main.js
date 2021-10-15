@@ -1,4 +1,7 @@
-const game = {};
+const game = {
+  arena:null,
+  randomButton:null
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   initGame();
@@ -9,21 +12,25 @@ initGame = () => {
   game.randomButton = document.getElementById("randomButton")
   game.arena.addPlayers([
     { name: "SUB-ZERO" },
-    { name: "SONYA"},
+    { name: "SCORPION"},
   ]);
 };
 
 function fight(){
-  const isFirst = getRandomIntInclusive(0, 1);
-  const isSecond = isFirst ? 0 : 1
+  const isFirst = getRandomInRange(0, 1);
+  const isSecond = isFirst ? 0 : 1;
 
-  game.arena.players[isSecond].getDamage(game.arena.players[isFirst].attack())
+  attack(isFirst ,isSecond);
 
-  if(!haveWinner()){
-    game.arena.players[isFirst].getDamage(game.arena.players[isSecond].attack())
-  }
+  !haveWinner() 
+    ? attack(isSecond, isFirst)
+    : false;
 
   haveWinner()
+}
+
+function attack(first,second){
+  game.arena.players[second].getDamage(game.arena.players[first].attack())
 }
 
 function haveWinner(){
