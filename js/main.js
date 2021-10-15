@@ -27,7 +27,7 @@ function fight(){
   let winner = checkWinner()
 
   if(winner){
-    game.arena.addWinnerMessage(`${winner.nameCharacter} win`)
+    game.arena.addWinnerMessage(`${winner.nameCharacter} wins`)
     game.randomButton.disabled = true;
   }
 
