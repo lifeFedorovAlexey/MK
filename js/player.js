@@ -1,8 +1,8 @@
 class Player {
-  constructor(id, name, hp) {
+  constructor(id, name) {
     this.id = `player${++id}`;
     this.nameCharacter = name;
-    this.hp = hp;
+    this.hp = 100;
     this.img =
       IMAGE_URL +
       this.nameCharacter.replaceAll(/[^a-zA-Z]+/g, "").toLowerCase() +
@@ -14,6 +14,7 @@ class Player {
     this.name = null;
     this.character = null;
     this.image = null;
+    this.isDead = false;
   }
   init = () => {
     this.element = createElement("div", { classList: [this.id] });
@@ -44,4 +45,16 @@ class Player {
   attack = () => {
     console.log(this.name, "Fight...");
   };
+  getDamage(num){
+    const currentHp = this.hp - num;
+
+    if(currentHp > 0){
+      this.hp = currentHp
+    }else{
+      this.hp = 0
+      this.isDead = true
+    }
+    
+    this.life.style.width = this.hp+"%";
+  }
 }

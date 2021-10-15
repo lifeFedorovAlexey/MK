@@ -10,9 +10,10 @@ class Arena {
   };
 
   addPlayers = (players) => {
-    this.players = [...players];
-    this.players.map(({ name, hp }, id) => {
-      this.createPlayer(new Player(id, name, hp));
+     this.players = [...players].map(({ name }, id) => {
+      const player = new Player(id, name)
+      this.createPlayer(player)
+      return player
     });
   };
 
