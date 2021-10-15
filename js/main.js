@@ -13,22 +13,29 @@ initGame = () => {
   ]);
 };
 
-
 function fight(){
+  const isFirst = getRandomIntInclusive(0, 1);
+  const isSecond = isFirst ? 0 : 1
 
-  game.arena.players[0].getDamage(game.arena.players[1].attack())
-  game.arena.players[1].getDamage(game.arena.players[0].attack())
+  game.arena.players[isSecond].getDamage(game.arena.players[isFirst].attack())
 
-  let winner = checkWinner()
-
-  if(winner){
-    game.arena.addWinnerMessage(`${winner.nameCharacter} wins`)
-    game.randomButton.disabled = true;
+  if(!haveWinner()){
+    game.arena.players[isFirst].getDamage(game.arena.players[isSecond].attack())
   }
 
+  haveWinner()
 }
 
-function checkWinner(){
-  let players = game.arena.players.filter(player =>{return !player.isDead})
-  return players.length === 1 ? players[0] : false 
+function haveWinner(){
+  let players = game.arena.players.filter(player =>{
+    return !player.isDead
+  })
+
+  if(players.length === 1){
+    game.arena.addWinnerMessage(`${players[0].nameCharacter} wins`)
+    game.randomButton.disabled = true;
+    return true
+  }
+
+  return false 
 }
