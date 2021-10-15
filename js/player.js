@@ -43,7 +43,9 @@ class Player {
     this.element.appendChild(this.character);
   };
   attack = () => {
-    console.log(this.name, "Fight...");
+    const damage = getRandomIntInclusive(1,10)
+    console.log(`Игрок: ${this.nameCharacter} наносит урон ${damage}`)
+    return damage
   };
   getDamage(num){
     const currentHp = this.hp - num;

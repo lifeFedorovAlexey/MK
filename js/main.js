@@ -15,14 +15,9 @@ initGame = () => {
 
 
 function fight(){
-  const damageFirstPlayer = getRandomIntInclusive(1,10)
-  const damageSecondPlayer = getRandomIntInclusive(1,10)
 
-  console.log(`Игрок: ${game.arena.players[0].nameCharacter} наносит урон ${damageFirstPlayer}`)
-  console.log(`Игрок: ${game.arena.players[1].nameCharacter} наносит урон ${damageSecondPlayer}`)
-
-  game.arena.players[0].getDamage(damageFirstPlayer)
-  game.arena.players[1].getDamage(damageSecondPlayer)
+  game.arena.players[0].getDamage(game.arena.players[1].attack())
+  game.arena.players[1].getDamage(game.arena.players[0].attack())
 
   let winner = checkWinner()
 
