@@ -15,17 +15,22 @@ initGame = () => {
 
 
 function fight(){
-  let playerID = getRandomIntInclusive(0,1);
-  let damage = getRandomIntInclusive(1,10)
+  const damageFirstPlayer = getRandomIntInclusive(1,10)
+  const damageSecondPlayer = getRandomIntInclusive(1,10)
 
-  console.log(`Игрок: ${game.arena.players[playerID].nameCharacter} наносит урон ${damage}`)
-  
-  game.arena.players[playerID].getDamage(damage)
+  console.log(`Игрок: ${game.arena.players[0].nameCharacter} наносит урон ${damageFirstPlayer}`)
+  console.log(`Игрок: ${game.arena.players[1].nameCharacter} наносит урон ${damageSecondPlayer}`)
+
+  game.arena.players[0].getDamage(damageFirstPlayer)
+  game.arena.players[1].getDamage(damageSecondPlayer)
+
   let winner = checkWinner()
+
   if(winner){
-    console.log(`Победитель: ${winner.nameCharacter}`)
+    game.arena.addWinnerMessage(`${winner.nameCharacter} win`)
     game.randomButton.disabled = true;
   }
+
 }
 
 function checkWinner(){

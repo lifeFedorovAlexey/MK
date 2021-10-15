@@ -23,4 +23,10 @@ class Arena {
     this.container.appendChild(player.element);
     this.playersList.push(player.element);
   };
+  addWinnerMessage(message){
+    this.container.appendChild(createElement("div", {
+      classList: ["winTitle"],
+      text: message,
+    }))
+  }
 }
