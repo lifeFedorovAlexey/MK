@@ -12,7 +12,7 @@ initGame = () => {
   game.randomButton = document.getElementById("randomButton")
   game.arena.addPlayers([
     { name: "SUB-ZERO" },
-    { name: "SCORPION"},
+    { name: "KANO"},
   ]);
 };
 

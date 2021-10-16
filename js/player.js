@@ -3,10 +3,8 @@ class Player {
     this.id = `player${++id}`;
     this.nameCharacter = name;
     this.hp = 100;
-    this.img =
-      IMAGE_URL +
-      this.nameCharacter.replaceAll(/[^a-zA-Z]+/g, "").toLowerCase() +
-      ".gif";
+    this.states = PLAYERS_SPRITES.find(item=>item.player === name).states || PLAYERS_SPRITES.find(item=>item.player === "NOOBSAIBOT").states;
+    this.img = this.states.stance;
     this.weapon = ["leftLeg", "rightHand"];
     this.element = null;
     this.progressbar = null;
@@ -16,7 +14,7 @@ class Player {
     this.image = null;
     this.isDead = false;
   }
-  
+
   init = () => {
     this.element = createElement("div", { classList: [this.id] });
     this.progressbar = createElement("div", {
@@ -59,6 +57,7 @@ class Player {
     }else{
       this.hp = 0
       this.isDead = true
+      this.image.src = this.states.dizzy;
     }
     
     this.life.style.width = this.hp+"%";
