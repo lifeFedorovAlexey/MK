@@ -50,16 +50,29 @@ class Player {
   };
 
   getDamage(num){
-    const currentHp = this.hp - num;
+    this.changeHP(num)
 
-    if(currentHp > 0){
-      this.hp = currentHp
-    }else{
-      this.hp = 0
-      this.isDead = true
-      this.image.src = this.states.dizzy;
+    if(!this.hp){
+      this.dead()
     }
-    
-    this.life.style.width = this.hp+"%";
+
+    this.renderHP(this.elHP())
+  };
+
+  changeHP(num){
+    this.hp = this.hp - num > 0 ? this.hp - num : 0;
+  };
+
+  elHP(){
+    return this.life
+  }
+
+  renderHP(el){
+    el.style.width = this.hp+"%"
+  }
+
+  dead(){
+    this.isDead = true
+    this.image.src = this.states.dizzy;
   }
 }
