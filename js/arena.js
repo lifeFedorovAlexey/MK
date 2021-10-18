@@ -1,18 +1,16 @@
 class Arena {
   constructor(id) {
     this.id = id;
-    this.container = this.getContainer();
+    this.container = document.getElementById(id);
     this.players = [];
     this.playersList = [];
   }
-  getContainer = () => {
-    return document.getElementById(this.id);
-  };
 
   addPlayers = (players) => {
-    this.players = [...players];
-    this.players.map(({ name, hp }, id) => {
-      this.createPlayer(new Player(id, name, hp));
+     this.players = [...players].map(({ name }, id) => {
+      const player = new Player(id, name);
+      this.createPlayer(player);
+      return player
     });
   };
 
@@ -22,4 +20,11 @@ class Arena {
     this.container.appendChild(player.element);
     this.playersList.push(player.element);
   };
+
+  addWinnerMessage(message){
+    this.container.appendChild(createElement("div", {
+      classList: ["winTitle"],
+      text: message,
+    }))
+  }
 }

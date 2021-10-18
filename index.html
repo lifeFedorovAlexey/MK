@@ -9,14 +9,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>MK - JSMarathon - Arenas</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="js/settings.js"></script>
+    <script src="js/dictionary.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/player.js"></script>
     <script src="js/arena.js"></script>
   </head>
   <body>
     <div class="root">
-      <div class="arenas arena1" id="arena"></div>
+      <div class="arenas arena1" id="arena">
+        <div class="control">
+          <button class="button" id="randomButton" onclick="fight()">
+              Random
+          </button>
+       </div>
+      </div>
       <div class="chat"></div>
       <div class="wall-left"></div>
       <div class="wall-right"></div>
