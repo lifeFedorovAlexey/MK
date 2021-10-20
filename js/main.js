@@ -41,6 +41,7 @@ function haveWinner(){
   if(players.length === 1){
     game.arena.addWinnerMessage(`${players[0].nameCharacter} wins`)
     game.randomButton.disabled = true;
+    game.arena.createReloadButton();
     return true
   }
 
