@@ -3,7 +3,9 @@ class Player {
     this.id = `player${++id}`;
     this.nameCharacter = name;
     this.hp = 100;
-    this.states = PLAYERS_SPRITES.find(item=>item.player === name).states || PLAYERS_SPRITES.find(item=>item.player === "NOOBSAIBOT").states;
+    this.states =
+      PLAYERS_SPRITES.find((item) => item.player === name).states ||
+      PLAYERS_SPRITES.find((item) => item.player === "NOOBSAIBOT").states;
     this.img = this.states.stance;
     this.weapon = ["leftLeg", "rightHand"];
     this.element = null;
@@ -44,35 +46,31 @@ class Player {
   };
 
   attack = () => {
-    const damage = getRandomInRange(1,10)
-    console.log(`Игрок: ${this.nameCharacter} наносит урон ${damage}`)
-    return damage
+    const damage = getRandomInRange(1, 10);
+    console.log(`Игрок: ${this.nameCharacter} наносит урон ${damage}`);
+    return damage;
   };
 
-  getDamage(num){
-    this.changeHP(num)
+  getDamage(num) {
+    this.changeHP(num);
 
-    if(!this.hp){
-      this.dead()
+    if (!this.hp) {
+      this.dead();
     }
 
-    this.renderHP(this.elHP())
-  };
+    this.renderHP();
+  }
 
-  changeHP(num){
+  changeHP(num) {
     this.hp = this.hp - num > 0 ? this.hp - num : 0;
-  };
-
-  elHP(){
-    return this.life
   }
 
-  renderHP(el){
-    el.style.width = this.hp+"%"
+  renderHP() {
+    this.life.style.width = this.hp + "%";
   }
 
-  dead(){
-    this.isDead = true
+  dead() {
+    this.isDead = true;
     this.image.src = this.states.dizzy;
   }
 }
