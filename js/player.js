@@ -11,7 +11,9 @@ class Player {
     this.id = `player${++id}`;
     this.nameCharacter = name;
     this.hp = 100;
-    this.states = PLAYERS_SPRITES.find(item=>item.player === name).states || PLAYERS_SPRITES.find(item=>item.player === "NOOBSAIBOT").states;
+    this.states =
+      PLAYERS_SPRITES.find((item) => item.player === name).states ||
+      PLAYERS_SPRITES.find((item) => item.player === "NOOBSAIBOT").states;
     this.img = this.states.stance;
     this.weapon = ["leftLeg", "rightHand"];
     this.element = null;
@@ -80,7 +82,7 @@ class Player {
     this.renderHP();
   };
 
-  changeHP(num){
+  changeHP(num) {
     this.hp = this.hp - num > 0 ? this.hp - num : 0;
     this.hp ? false : this.dead();
   };
