@@ -2,7 +2,8 @@ class Arena {
   constructor(id) {
     this.id = id;
     this.container = document.getElementById(id);
-    this.controls = document.getElementById("controls");
+    this.controls = document.querySelector(".control");
+    this.fightButton = document.querySelector(".buttonWrap .button");
     this.players = [];
     this.playersList = [];
   }
@@ -44,7 +45,7 @@ class Arena {
 
     this.reloadButtonContainer.appendChild(this.reloadButton)
 
-    this.controls.appendChild(this.reloadButtonContainer)
+    this.container.prepend(this.reloadButtonContainer)
 
   }
 

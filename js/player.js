@@ -1,3 +1,11 @@
+const HIT = {
+  head: 30,
+  body: 25,
+  foot: 20,
+}
+
+const ATTACK = ['head', 'body', 'foot'];
+
 class Player {
   constructor(id, name) {
     this.id = `player${++id}`;
@@ -44,35 +52,45 @@ class Player {
   };
 
   attack = () => {
-    const damage = getRandomInRange(1,10)
-    console.log(`Игрок: ${this.nameCharacter} наносит урон ${damage}`)
+    const damage = {};
+
+    let checkedItems = document.querySelectorAll(".control input[type=radio]:checked");
+    
+    for (let item of checkedItems) {
+      damage[item.name] = item.value
+      item.checked = false;
+    }
+
+    damage.value = HIT[damage.hit || "head"];
     return damage
   };
 
+  enemyAttack = () =>{
+    let hit = Object.keys(HIT)[getRandomInRange(0,2)]
+    let defence = Object.keys(HIT)[getRandomInRange(0,2)]
+    return {hit,defence,value:HIT[hit]}
+  };
+
+  chat = (name,damage) =>{
+    console.log(`Игрок: ${name} наносит урон ${damage}`)
+  };
+
   getDamage(num){
-    this.changeHP(num)
-
-    if(!this.hp){
-      this.dead()
-    }
-
-    this.renderHP(this.elHP())
+    this.changeHP(num);
+    this.renderHP();
   };
 
   changeHP(num){
     this.hp = this.hp - num > 0 ? this.hp - num : 0;
+    this.hp ? false : this.dead();
   };
 
-  elHP(){
-    return this.life
-  }
-
-  renderHP(el){
-    el.style.width = this.hp+"%"
+  renderHP(){
+    this.life.style.width = this.hp+"%";
   }
 
   dead(){
-    this.isDead = true
+    this.isDead = true;
     this.image.src = this.states.dizzy;
   }
 }

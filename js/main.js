@@ -9,41 +9,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
 initGame = () => {
   game.arena = new Arena("arena");
-  game.randomButton = document.getElementById("randomButton")
   game.arena.addPlayers([
     { name: "SUB-ZERO" },
     { name: "KANO"},
   ]);
+  game.arena.fightButton.addEventListener("click",fight);
+  
 };
 
-function fight(){
-  const isFirst = getRandomInRange(0, 1);
-  const isSecond = isFirst ? 0 : 1;
+function fight(event){
+  event.preventDefault();
+  let player = game.arena.players[0]; 
+  let bot = game.arena.players[1]; 
+  let playerStep = player.attack();
+  let botStep = bot.enemyAttack();
 
-  attack(isFirst ,isSecond);
+  player.getDamage(calculateDamage(playerStep,botStep));
+  bot.getDamage(calculateDamage(botStep,playerStep));
 
-  !haveWinner() 
-    ? attack(isSecond, isFirst)
-    : false;
+  checkWinner();
 
-  haveWinner()
 }
 
-function attack(first,second){
-  game.arena.players[second].getDamage(game.arena.players[first].attack())
-}
+function calculateDamage(first,second){
+  return first.defence === second.hit 
+    ? 0 
+    : second.value;
+};
 
-function haveWinner(){
+function checkWinner(){
   let players = game.arena.players.filter(player =>{
     return !player.isDead
   })
 
   if(players.length === 1){
-    game.arena.addWinnerMessage(`${players[0].nameCharacter} wins`)
-    game.randomButton.disabled = true;
-    game.arena.createReloadButton();
-    return true
+    gameOver(players[0])
+  }else if(!players.length){
+    gameOver();
   }
-
-  return false 
 }
+
+function gameOver(player){
+  let message = !player.nameCharacter ? "draw" : player.nameCharacter + " wins"
+  game.arena.addWinnerMessage(message)
+  game.arena.fightButton.disabled = true;
+  game.arena.createReloadButton();
+};
