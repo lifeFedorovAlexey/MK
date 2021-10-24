@@ -36,7 +36,6 @@ function fight(event){
   bot.getDamage(playerDamage);
 
   checkWinner();
-
 }
 
 function calculateDamage(first,second){
@@ -46,25 +45,33 @@ function calculateDamage(first,second){
 };
 
 function checkWinner(){
-  let players = game.arena.players.filter(player =>{
+  let players = game.arena.players.filter(player => {
     return !player.isDead
   })
-
-  if(players.length === 1){
-    gameOver(players[0])
-  }else if(!players.length){
-    gameOver();
+ 
+  if(players.length ===2){
+    return;
   }
+  
+  gameOver(players.length ===1 ? players[0] : false);
+
 }
 
 function gameOver(player){
-
-  if(!player){
-    game.arena.addLog("draw");
-  }else{
-    game.arena.addLog("end", player.id === "player2");
-  }
-  
+  game.arena.addWinnerMessage(getWinnerText(player));
+  game.arena.addLog(isEndType(player), isBot(player));
   game.arena.fightButton.disabled = true;
   game.arena.createReloadButton();
 };
+
+function getWinnerText(player){
+  return player ? player.nameCharacter + " wins" : "draw"
+}
+
+function isEndType(player){
+  return player ? "end" : "draw"
+}
+
+function isBot(player){
+  return player && player.id === "player2"
+}

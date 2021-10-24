@@ -12,12 +12,12 @@ class Arena {
   addPlayers = (players) => {
      this.players = [...players].map(({ name }, id) => {
       const player = new Player(id, name);
-      this.createPlayer(player);
+      this.renderPlayer(player);
       return player
     });
   };
 
-  createPlayer = (player) => {
+  renderPlayer = (player) => {
     player.init();
     player.render();
     this.container.appendChild(player.element);
@@ -44,25 +44,21 @@ class Arena {
   };
 
   createReloadButton(){
-    this.reloadButtonContainer =  createElement("div", {
+    this.reloadButtonContainer = createElement("div", {
       classList: ["reloadWrap"],
       text: this.nameCharacter,
     });
 
-    this.reloadButton =  createElement("button", {
+    this.reloadButton = createElement("button", {
       classList: ["button"],
       text: "Restart",
     });
 
-    this.reloadButton.addEventListener('click', function() { window.location.reload() }, false);
-
-    this.reloadButtonContainer.appendChild(this.reloadButton)
-
-    this.container.prepend(this.reloadButtonContainer)
+    this.reloadButton.addEventListener('click', reload, false);
+    this.reloadButtonContainer.appendChild(this.reloadButton);
+    this.container.prepend(this.reloadButtonContainer);
 
   }
-
-
 }
 
 function reload(){
@@ -74,14 +70,4 @@ function replacer(str,first,second){
     .replace("[time]",getCurrentDate())
     .replace("[first]",first)
     .replace("[second]",second);
-
-}
-
-function getCurrentDate(){
-  return new Date().toLocaleTimeString('ru-Ru', { hour12: false, 
-    hour: "numeric", 
-    minute: "numeric",
-    day:"numeric",
-    month:"numeric"
-  });
 }
