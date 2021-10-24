@@ -27,10 +27,10 @@ function fight(event){
   let botStep = bot.enemyAttack();
 
   let playerDamage = calculateDamage(botStep,playerStep);
-  game.arena.addLog(playerDamage ? "hit":"defence", );
+  game.arena.addLog(playerDamage ? "hit":"defence", playerDamage);
 
   let botDamage = calculateDamage(playerStep,botStep)
-  game.arena.addLog(botDamage ? "hit":"defence", true);
+  game.arena.addLog(botDamage ? "hit":"defence", botDamage , true);
 
   player.getDamage(botDamage);
   bot.getDamage(playerDamage);
@@ -52,14 +52,14 @@ function checkWinner(){
   if(players.length ===2){
     return;
   }
-  
+
   gameOver(players.length ===1 ? players[0] : false);
 
 }
 
 function gameOver(player){
   game.arena.addWinnerMessage(getWinnerText(player));
-  game.arena.addLog(isEndType(player), isBot(player));
+  game.arena.addLog(isEndType(player),false, isBot(player));
   game.arena.fightButton.disabled = true;
   game.arena.createReloadButton();
 };

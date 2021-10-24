@@ -31,15 +31,15 @@ class Arena {
     }))
   };
 
-  addLog(type,isBot){
+  addLog(type,damage,isBot){
     const log = LOGS[type][getRandomInRange(0,LOGS[type].length-1)];
     const first = this.players[isBot ? 1 : 0 ];
     const second = this.players[isBot ? 0 : 1 ];
-    this.logRender(log,first,second);
+    this.logRender(log,first,second,damage);
   };
 
-  logRender(log,first,second){
-    const logElement = `<p>${replacer(log, first.nameCharacter, second.nameCharacter)}</p>`
+  logRender(log,first,second,damage){
+    const logElement = `<p>${replacer(log, first.nameCharacter, second.nameCharacter,damage)}</p>`
     this.chat.insertAdjacentHTML('afterbegin',logElement);
   };
 
@@ -65,8 +65,9 @@ function reload(){
     window.location.reload()
 }
 
-function replacer(str,first,second){
-  return str
+function replacer(str,first,second,damage){
+  let currentStr = damage ? "(Урон: " + damage +") " + str : str;
+  return currentStr
     .replace("[time]",getCurrentDate())
     .replace("[first]",first)
     .replace("[second]",second);
