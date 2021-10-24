@@ -13,6 +13,7 @@ initGame = () => {
     { name: "SUB-ZERO" },
     { name: "KANO"},
   ]);
+  game.arena.addLog("start");
   game.arena.fightButton.addEventListener("click",fight);
   
 };
@@ -20,12 +21,19 @@ initGame = () => {
 function fight(event){
   event.preventDefault();
   let player = game.arena.players[0]; 
-  let bot = game.arena.players[1]; 
+  let bot = game.arena.players[1];
+
   let playerStep = player.attack();
   let botStep = bot.enemyAttack();
 
-  player.getDamage(calculateDamage(playerStep,botStep));
-  bot.getDamage(calculateDamage(botStep,playerStep));
+  let playerDamage = calculateDamage(botStep,playerStep);
+  game.arena.addLog(playerDamage ? "hit":"defence", );
+
+  let botDamage = calculateDamage(playerStep,botStep)
+  game.arena.addLog(botDamage ? "hit":"defence", true);
+
+  player.getDamage(botDamage);
+  bot.getDamage(playerDamage);
 
   checkWinner();
 
@@ -50,8 +58,13 @@ function checkWinner(){
 }
 
 function gameOver(player){
-  let message = !player.nameCharacter ? "draw" : player.nameCharacter + " wins"
-  game.arena.addWinnerMessage(message)
+
+  if(!player){
+    game.arena.addLog("draw");
+  }else{
+    game.arena.addLog("end", player.id === "player2");
+  }
+  
   game.arena.fightButton.disabled = true;
   game.arena.createReloadButton();
 };

@@ -3,6 +3,7 @@ class Arena {
     this.id = id;
     this.container = document.getElementById(id);
     this.controls = document.querySelector(".control");
+    this.chat = document.querySelector(".chat");
     this.fightButton = document.querySelector(".buttonWrap .button");
     this.players = [];
     this.playersList = [];
@@ -30,6 +31,18 @@ class Arena {
     }))
   };
 
+  addLog(type,isBot){
+    const log = LOGS[type][getRandomInRange(0,LOGS[type].length-1)];
+    const first = this.players[isBot ? 1 : 0 ];
+    const second = this.players[isBot ? 0 : 1 ];
+    this.logRender(log,first,second);
+  };
+
+  logRender(log,first,second){
+    const logElement = `<p>${replacer(log, first.nameCharacter, second.nameCharacter)}</p>`
+    this.chat.insertAdjacentHTML('afterbegin',logElement);
+  };
+
   createReloadButton(){
     this.reloadButtonContainer =  createElement("div", {
       classList: ["reloadWrap"],
@@ -54,4 +67,21 @@ class Arena {
 
 function reload(){
     window.location.reload()
+}
+
+function replacer(str,first,second){
+  return str
+    .replace("[time]",getCurrentDate())
+    .replace("[first]",first)
+    .replace("[second]",second);
+
+}
+
+function getCurrentDate(){
+  return new Date().toLocaleTimeString('ru-Ru', { hour12: false, 
+    hour: "numeric", 
+    minute: "numeric",
+    day:"numeric",
+    month:"numeric"
+  });
 }
