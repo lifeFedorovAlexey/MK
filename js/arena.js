@@ -3,6 +3,7 @@ class Arena {
     this.id = id;
     this.container = document.getElementById(id);
     this.controls = document.querySelector(".control");
+    this.chat = document.querySelector(".chat");
     this.fightButton = document.querySelector(".buttonWrap .button");
     this.players = [];
     this.playersList = [];
@@ -11,12 +12,12 @@ class Arena {
   addPlayers = (players) => {
      this.players = [...players].map(({ name }, id) => {
       const player = new Player(id, name);
-      this.createPlayer(player);
+      this.renderPlayer(player);
       return player
     });
   };
 
-  createPlayer = (player) => {
+  renderPlayer = (player) => {
     player.init();
     player.render();
     this.container.appendChild(player.element);
@@ -30,28 +31,44 @@ class Arena {
     }))
   };
 
+  addLog(type,damage,isBot){
+    const log = LOGS[type][getRandomInRange(0,LOGS[type].length-1)];
+    const first = this.players[isBot ? 1 : 0 ];
+    const second = this.players[isBot ? 0 : 1 ];
+    this.logRender(log,first,second,damage);
+  };
+
+  logRender(log,first,second,damage){
+    const logElement = `<p>${replacer(log, first.nameCharacter, second.nameCharacter,damage)}</p>`
+    this.chat.insertAdjacentHTML('afterbegin',logElement);
+  };
+
   createReloadButton(){
-    this.reloadButtonContainer =  createElement("div", {
+    this.reloadButtonContainer = createElement("div", {
       classList: ["reloadWrap"],
       text: this.nameCharacter,
     });
 
-    this.reloadButton =  createElement("button", {
+    this.reloadButton = createElement("button", {
       classList: ["button"],
       text: "Restart",
     });
 
-    this.reloadButton.addEventListener('click', function() { window.location.reload() }, false);
-
-    this.reloadButtonContainer.appendChild(this.reloadButton)
-
-    this.container.prepend(this.reloadButtonContainer)
+    this.reloadButton.addEventListener('click', reload, false);
+    this.reloadButtonContainer.appendChild(this.reloadButton);
+    this.container.prepend(this.reloadButtonContainer);
 
   }
-
-
 }
 
 function reload(){
     window.location.reload()
+}
+
+function replacer(str,first,second,damage){
+  let currentStr = damage ? "(Урон: " + damage +") " + str : str;
+  return currentStr
+    .replace("[time]",getCurrentDate())
+    .replace("[first]",first)
+    .replace("[second]",second);
 }

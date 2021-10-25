@@ -27,3 +27,12 @@ createElement = (tag, { classList, src, text, style }) => {
 getRandomInRange = (min, max) =>{
   return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + Math.ceil(min);
 }
+
+function getCurrentDate(){
+  return new Date().toLocaleTimeString('ru-Ru', { hour12: false, 
+    hour: "numeric", 
+    minute: "numeric",
+    day:"numeric",
+    month:"numeric"
+  });
+}
