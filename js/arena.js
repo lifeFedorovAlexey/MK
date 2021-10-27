@@ -28,26 +28,26 @@ export class Arena {
     this.playersList.push(player.element);
   };
 
-  addWinnerMessage(message){
+  addWinnerMessage = (message) =>{
     this.container.appendChild(createElement("div", {
       classList: ["winTitle"],
       text: message,
     }))
   };
 
-  addLog(type,damage,isBot){
+  addLog = (type,damage,isBot) =>{
     const log = LOGS[type][getRandomInRange(0,LOGS[type].length-1)];
     const first = this.players[isBot ? 1 : 0 ];
     const second = this.players[isBot ? 0 : 1 ];
     this.logRender(log,first,second,damage);
   };
 
-  logRender(log,{nameCharacter:firstName},{nameCharacter:secondName},damage){
+  logRender = (log, {nameCharacter:firstName}, {nameCharacter:secondName}, damage) => {
     const logElement = `<p>${replacer(log, firstName, secondName, damage)}</p>`
     this.chat.insertAdjacentHTML('afterbegin',logElement);
   };
 
-  createReloadButton(){
+  createReloadButton = () =>{
     this.reloadButtonContainer = createElement("div", {
       classList: ["reloadWrap"],
       text: this.nameCharacter,

@@ -77,21 +77,21 @@ export class Player {
     console.log(`Игрок: ${name} наносит урон ${damage}`)
   };
 
-  getDamage(num){
+  getDamage = (num) =>{
     this.changeHP(num);
     this.renderHP();
   };
 
-  changeHP(num) {
+  changeHP = (num) =>{
     this.hp = this.hp - num > 0 ? this.hp - num : 0;
     this.hp ? false : this.dead();
   };
 
-  renderHP(){
+  renderHP = () =>{
     this.life.style.width = this.hp+"%";
   }
 
-  dead(){
+  dead = () =>{
     this.isDead = true;
     this.image.src = this.states.dizzy;
   }
