@@ -14,7 +14,7 @@ function initGame(){
   game.arena = new Arena("arena");
   game.arena.addPlayers([
     { name: "SUB-ZERO" },
-    { name: "KANO"},
+    { name: "SONYA"},
   ]);
   game.arena.addLog("start");
   game.arena.fightButton.addEventListener("click",fight);

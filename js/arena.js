@@ -42,8 +42,8 @@ export class Arena {
     this.logRender(log,first,second,damage);
   };
 
-  logRender(log,first,second,damage){
-    const logElement = `<p>${replacer(log, first.nameCharacter, second.nameCharacter, damage)}</p>`
+  logRender(log,{nameCharacter:firstName},{nameCharacter:secondName},damage){
+    const logElement = `<p>${replacer(log, firstName, secondName, damage)}</p>`
     this.chat.insertAdjacentHTML('afterbegin',logElement);
   };
 

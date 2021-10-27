@@ -3,7 +3,7 @@ export const PLAYERS_SPRITES = [
       key: 'sonya',
       player: 'SONYA',
       states: {
-        stance: 'https://www.mortalkombatwarehouse.com/mk3/animations/sonya.gif',
+        stance: 'https://reactmarathon-api.herokuapp.com/assets/sonya.gif',
         forward: 'https://www.mortalkombatwarehouse.com/mk3/animations/sonya-walking-f.gif',
         backward: 'https://www.mortalkombatwarehouse.com/mk3/animations/sonya-walking-b.gif',
         running: 'https://www.mortalkombatwarehouse.com/mk3/animations/sonya-running.gif',
@@ -81,7 +81,7 @@ export const PLAYERS_SPRITES = [
       key: 'subzero',
       player: 'SUB-ZERO',
       states: {
-        stance: 'https://www.mortalkombatwarehouse.com/mk3/animations/subzero.gif',
+        stance: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
         forward: 'https://www.mortalkombatwarehouse.com/mk3/animations/subzero-walking-f.gif',
         backward: 'https://www.mortalkombatwarehouse.com/mk3/animations/subzero-walking-b.gif',
         running: 'https://www.mortalkombatwarehouse.com/mk3/animations/subzero-running.gif',
