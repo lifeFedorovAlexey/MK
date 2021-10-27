@@ -1,10 +1,14 @@
-class Arena {
+import { Player } from "./player.js";
+import { LOGS } from "./dictionary.js"
+import {getRandomInRange , getCurrentDate , createElement , query} from './utils.js'
+
+export class Arena {
   constructor(id) {
     this.id = id;
     this.container = document.getElementById(id);
-    this.controls = document.querySelector(".control");
-    this.chat = document.querySelector(".chat");
-    this.fightButton = document.querySelector(".buttonWrap .button");
+    this.controls = query(".control");
+    this.chat = query(".chat");
+    this.fightButton = query(".buttonWrap .button");
     this.players = [];
     this.playersList = [];
   }
@@ -24,26 +28,26 @@ class Arena {
     this.playersList.push(player.element);
   };
 
-  addWinnerMessage(message){
+  addWinnerMessage = (message) =>{
     this.container.appendChild(createElement("div", {
       classList: ["winTitle"],
       text: message,
     }))
   };
 
-  addLog(type,damage,isBot){
+  addLog = (type,damage,isBot) =>{
     const log = LOGS[type][getRandomInRange(0,LOGS[type].length-1)];
     const first = this.players[isBot ? 1 : 0 ];
     const second = this.players[isBot ? 0 : 1 ];
     this.logRender(log,first,second,damage);
   };
 
-  logRender(log,first,second,damage){
-    const logElement = `<p>${replacer(log, first.nameCharacter, second.nameCharacter,damage)}</p>`
+  logRender = (log, {nameCharacter:firstName}, {nameCharacter:secondName}, damage) => {
+    const logElement = `<p>${replacer(log, firstName, secondName, damage)}</p>`
     this.chat.insertAdjacentHTML('afterbegin',logElement);
   };
 
-  createReloadButton(){
+  createReloadButton = () =>{
     this.reloadButtonContainer = createElement("div", {
       classList: ["reloadWrap"],
       text: this.nameCharacter,

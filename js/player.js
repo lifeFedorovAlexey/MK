@@ -1,12 +1,12 @@
+import { PLAYERS_SPRITES } from "./dictionary.js"
+import { createElement , getRandomInRange } from "./utils.js";
 const HIT = {
   head: 30,
   body: 25,
   foot: 20,
 }
 
-const ATTACK = ['head', 'body', 'foot'];
-
-class Player {
+export class Player {
   constructor(id, name) {
     this.id = `player${++id}`;
     this.nameCharacter = name;
@@ -77,21 +77,21 @@ class Player {
     console.log(`Игрок: ${name} наносит урон ${damage}`)
   };
 
-  getDamage(num){
+  getDamage = (num) =>{
     this.changeHP(num);
     this.renderHP();
   };
 
-  changeHP(num) {
+  changeHP = (num) =>{
     this.hp = this.hp - num > 0 ? this.hp - num : 0;
     this.hp ? false : this.dead();
   };
 
-  renderHP(){
+  renderHP = () =>{
     this.life.style.width = this.hp+"%";
   }
 
-  dead(){
+  dead = () =>{
     this.isDead = true;
     this.image.src = this.states.dizzy;
   }

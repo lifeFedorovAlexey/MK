@@ -1,3 +1,6 @@
+import { Arena } from "./arena.js";
+import { getWinnerText , isEndType , isBot } from "./utils.js";
+
 const game = {
   arena:null,
   randomButton:null
@@ -7,11 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
   initGame();
 });
 
-initGame = () => {
+function initGame(){
   game.arena = new Arena("arena");
   game.arena.addPlayers([
     { name: "SUB-ZERO" },
-    { name: "KANO"},
+    { name: "SONYA"},
   ]);
   game.arena.addLog("start");
   game.arena.fightButton.addEventListener("click",fight);
@@ -64,14 +67,3 @@ function gameOver(player){
   game.arena.createReloadButton();
 };
 
-function getWinnerText(player){
-  return player ? player.nameCharacter + " wins" : "draw"
-}
-
-function isEndType(player){
-  return player ? "end" : "draw"
-}
-
-function isBot(player){
-  return player && player.id === "player2"
-}
