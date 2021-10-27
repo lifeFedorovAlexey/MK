@@ -1,4 +1,4 @@
-const PLAYERS_SPRITES = [
+export const PLAYERS_SPRITES = [
     {
       key: 'sonya',
       player: 'SONYA',
@@ -222,7 +222,7 @@ const PLAYERS_SPRITES = [
     }
   ];
 
-  const LOGS = {
+export const LOGS = {
     start: ['Часы показывали [time], когда [first] и [second] бросили вызов друг другу.'],
     end: [
         'Результат удара [first]: [second] - труп',

@@ -1,4 +1,4 @@
-createElement = (tag, { classList, src, text, style }) => {
+export const createElement = (tag, { classList, src, text, style }) => {
   let element = document.createElement(tag);
   if (classList) {
     element.classList.add(classList.join(" "));
@@ -24,15 +24,31 @@ createElement = (tag, { classList, src, text, style }) => {
   return element;
 };
 
-getRandomInRange = (min, max) =>{
+export const getRandomInRange = (min, max) =>{
   return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + Math.ceil(min);
 }
 
-function getCurrentDate(){
+export const getCurrentDate = function(){
   return new Date().toLocaleTimeString('ru-Ru', { hour12: false, 
     hour: "numeric", 
     minute: "numeric",
     day:"numeric",
     month:"numeric"
   });
+}
+
+export const getWinnerText = function(player){
+  return player ? player.nameCharacter + " wins" : "draw"
+}
+
+export const isEndType = function(player){
+  return player ? "end" : "draw"
+}
+
+export const isBot = function(player){
+  return player && player.id === "player2"
+}
+
+export const query = (selector)=>{
+  return document.querySelector(selector);
 }

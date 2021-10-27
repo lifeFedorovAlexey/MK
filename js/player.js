@@ -1,12 +1,12 @@
+import { PLAYERS_SPRITES } from "./dictionary.js"
+import { createElement , getRandomInRange } from "./utils.js";
 const HIT = {
   head: 30,
   body: 25,
   foot: 20,
 }
 
-const ATTACK = ['head', 'body', 'foot'];
-
-class Player {
+export class Player {
   constructor(id, name) {
     this.id = `player${++id}`;
     this.nameCharacter = name;

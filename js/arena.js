@@ -1,10 +1,14 @@
-class Arena {
+import { Player } from "./player.js";
+import { LOGS } from "./dictionary.js"
+import {getRandomInRange , getCurrentDate , createElement , query} from './utils.js'
+
+export class Arena {
   constructor(id) {
     this.id = id;
     this.container = document.getElementById(id);
-    this.controls = document.querySelector(".control");
-    this.chat = document.querySelector(".chat");
-    this.fightButton = document.querySelector(".buttonWrap .button");
+    this.controls = query(".control");
+    this.chat = query(".chat");
+    this.fightButton = query(".buttonWrap .button");
     this.players = [];
     this.playersList = [];
   }
@@ -39,7 +43,7 @@ class Arena {
   };
 
   logRender(log,first,second,damage){
-    const logElement = `<p>${replacer(log, first.nameCharacter, second.nameCharacter,damage)}</p>`
+    const logElement = `<p>${replacer(log, first.nameCharacter, second.nameCharacter, damage)}</p>`
     this.chat.insertAdjacentHTML('afterbegin',logElement);
   };
 
